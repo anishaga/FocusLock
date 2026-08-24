@@ -57,14 +57,12 @@ class LockScreenActivity : AppCompatActivity() {
 
         val phrase = TextView(this).apply {
             text = "\n${UnlockManager.PHRASE}\n"
-            textIsSelectable = false
         }
 
         val input = EditText(this).apply {
             inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
             isSingleLine = false
             hint = "Type the phrase manually"
-            textIsSelectable = false
             customSelectionActionModeCallback = object : ActionMode.Callback {
                 override fun onCreateActionMode(mode: ActionMode?, menu: Menu?) = false
                 override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?) = false
