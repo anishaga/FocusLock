@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Focus Lock</string>
+    <string name="accessibility_description">Detects X.com and Twitter in Chrome and shows a local Focus Lock screen during blocked hours.</string>
+</resources>
