@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base -->
+    <color name="focus_ink">#ECE7DC</color>
+    <color name="focus_ink_muted">#A7AFAF</color>
+    <color name="focus_paper">#171D20</color>
+    <color name="focus_surface">#202830</color>
+    <color name="focus_border">#303A40</color>
+    <color name="focus_on_ink">#171D20</color>
+
+    <!-- Status: allowed (sage green) -->
+    <color name="focus_allowed">#8FBE9B</color>
+    <color name="focus_allowed_container">#24352A</color>
+
+    <!-- Status: blocked (warm clay) -->
+    <color name="focus_blocked">#E0A874</color>
+    <color name="focus_blocked_container">#3B2E20</color>
+
+    <!-- Status: emergency override active (muted gold) -->
+    <color name="focus_override">#D9BE6E</color>
+    <color name="focus_override_container">#382F1C</color>
+</resources>

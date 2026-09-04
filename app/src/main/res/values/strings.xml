@@ -1,4 +1,40 @@
 <resources>
     <string name="app_name">Focus Lock</string>
     <string name="accessibility_description">Detects X.com and Twitter in Chrome and shows a local Focus Lock screen during blocked hours.</string>
+
+    <!-- Main screen -->
+    <string name="home_eyebrow">FOCUS LOCK</string>
+    <string name="status_blocked_headline">Blocked</string>
+    <string name="status_allowed_headline">Allowed</string>
+    <string name="status_override_headline">Override active</string>
+    <string name="next_block_format">Next focus block starts at %1$s</string>
+    <string name="override_subtext">X is allowed for up to 15 minutes, then your normal schedule resumes</string>
+    <string name="today_label">Today</string>
+    <string name="schedule_blocked_label">BLOCKED</string>
+    <string name="schedule_allowed_label">ALLOWED</string>
+    <string name="setup_label">Setup</string>
+    <string name="accessibility_service_on">Accessibility service: On</string>
+    <string name="accessibility_service_off">Accessibility service: Off — Focus Lock can\'t block anything until this is turned on</string>
+    <string name="open_accessibility_settings">Open Accessibility Settings</string>
+    <string name="banking_apps_note">Some banking apps warn about (or block) any active accessibility service, as a fraud-prevention measure — this isn\'t specific to Focus Lock. Turn the toggle above off before opening those apps, or set up Android\'s Accessibility Shortcut for a faster on/off than coming back to this screen.</string>
+    <string name="test_lock_screen">Test lock screen</string>
+    <string name="clear_override">Clear emergency override</string>
+    <string name="safety_note">This app does not use VPN, Device Admin, root, or any screen-lock control — nothing that could make the phone unusable. The only special permission is the Accessibility Service you turn on above. To stop Focus Lock at any time: turn that service off, or uninstall the app.</string>
+
+    <!-- Lock screen -->
+    <string name="lock_headline">X is paused</string>
+    <string name="leave_button">Back to what I was doing</string>
+    <string name="emergency_unlock_button">Emergency unlock</string>
+    <string name="emergency_armed_format">Emergency unlock armed.\n\nWait %1$d seconds…</string>
+
+    <!-- Emergency unlock dialog -->
+    <string name="emergency_title">Emergency unlock</string>
+    <string name="emergency_explanation">This is intentionally difficult. If access is genuinely urgent, type the sentence below exactly, by hand.</string>
+    <string name="emergency_hint">Type the phrase manually</string>
+    <string name="emergency_cancel">Cancel</string>
+    <string name="emergency_continue">Continue</string>
+    <string name="emergency_confirm_title">Are you absolutely sure?</string>
+    <string name="emergency_confirm_message">This will allow X for 15 minutes. Your normal schedule will resume afterward.</string>
+    <string name="emergency_confirm_no">No</string>
+    <string name="emergency_confirm_yes">Yes, unlock 15 minutes</string>
 </resources>

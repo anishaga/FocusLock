@@ -1,8 +1,37 @@
 <resources>
     <style name="Theme.FocusLock" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:fontFamily">sans</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:statusBarColor">@android:color/white</item>
-        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif</item>
+
+        <!-- Custom palette (see colors.xml / values-night/colors.xml) instead
+             of the Material3 baseline purple defaults. -->
+        <item name="colorPrimary">@color/focus_ink</item>
+        <item name="colorOnPrimary">@color/focus_on_ink</item>
+        <item name="colorSecondary">@color/focus_ink</item>
+        <item name="colorOnSecondary">@color/focus_on_ink</item>
+        <item name="colorSurface">@color/focus_surface</item>
+        <item name="colorOnSurface">@color/focus_ink</item>
+        <item name="android:colorBackground">@color/focus_paper</item>
+        <item name="colorOnBackground">@color/focus_ink</item>
+
+        <!-- Status bar/nav bar follow the current surface color and switch
+             icon color via the day/night bool, instead of being hardcoded
+             to white (which looked broken in dark mode). -->
+        <item name="android:windowLightStatusBar">@bool/is_light_status_bar</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+    </style>
+
+    <style name="Focus.Button.Primary" parent="Widget.Material3.Button">
+        <item name="cornerRadius">14dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Focus.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/focus_ink_muted</item>
     </style>
 </resources>

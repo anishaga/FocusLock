@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base -->
+    <color name="focus_ink">#20303A</color>
+    <color name="focus_ink_muted">#5C6B74</color>
+    <color name="focus_paper">#F7F4EE</color>
+    <color name="focus_surface">#FFFFFF</color>
+    <color name="focus_border">#E6E1D6</color>
+    <color name="focus_on_ink">#FFFFFF</color>
+
+    <!-- Status: allowed (sage green) -->
+    <color name="focus_allowed">#4C7A57</color>
+    <color name="focus_allowed_container">#E3EEE4</color>
+
+    <!-- Status: blocked (warm clay) -->
+    <color name="focus_blocked">#AD6A34</color>
+    <color name="focus_blocked_container">#F4E7D9</color>
+
+    <!-- Status: emergency override active (muted gold) -->
+    <color name="focus_override">#A0821F</color>
+    <color name="focus_override_container">#F3ECD3</color>
+
+    <!-- Launcher icon only - deliberately NOT overridden in values-night,
+         so the icon looks the same regardless of system dark/light mode. -->
+    <color name="ic_launcher_background">#20303A</color>
+    <color name="ic_launcher_foreground">#F7F4EE</color>
+</resources>

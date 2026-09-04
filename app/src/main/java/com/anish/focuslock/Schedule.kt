@@ -32,4 +32,42 @@ object Schedule {
             now.isBefore(eveningBlockEnd) -> "Allowed again at 9:00 PM"
             else -> "Allowed now"
         }
+
+    /**
+     * One contiguous blocked/allowed segment of the day, for display only.
+     */
+    data class BlockWindow(val startMinute: Int, val endMinute: Int, val blocked: Boolean) {
+        val durationMinutes: Int get() = endMinute - startMinute
+    }
+
+    private fun minuteOf(t: LocalTime): Int = t.hour * 60 + t.minute
+
+    /**
+     * Purely descriptive breakdown of the full day into contiguous
+     * blocked/allowed segments, derived from the exact same boundary times
+     * isBlocked() uses above. Used only for display (the schedule list and
+     * timeline bar on the home screen) - it is never consulted by
+     * isBlocked() itself, so this cannot change actual blocking behavior,
+     * and the display can never silently drift out of sync with reality
+     * the way a separately hand-typed schedule string could.
+     */
+    fun blockWindows(): List<BlockWindow> {
+        val boundaries = listOf(
+            0,
+            minuteOf(earlyMorningBlockStart),
+            minuteOf(earlyMorningBlockEnd),
+            minuteOf(morningBlockStart),
+            minuteOf(lunchStart),
+            minuteOf(lunchEnd),
+            minuteOf(eveningBlockEnd),
+            24 * 60
+        )
+        return (0 until boundaries.size - 1).map { i ->
+            val start = boundaries[i]
+            val end = boundaries[i + 1]
+            val midMinute = (start + end) / 2
+            val blocked = isBlocked(LocalTime.of(midMinute / 60, midMinute % 60))
+            BlockWindow(start, end, blocked)
+        }
+    }
 }

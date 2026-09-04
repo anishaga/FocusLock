@@ -5,34 +5,47 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="32dp"
-    android:background="@android:color/white">
+    android:background="?attr/colorSurface">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="🔒 X is locked"
+        android:text="&#128274;"
+        android:textSize="48sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/lock_headline"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="?attr/colorOnSurface" />
 
     <TextView
         android:id="@+id/countdownText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:gravity="center"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/leaveButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Go back" />
-
-    <Button
-        android:id="@+id/emergencyButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Emergency unlock" />
+        android:gravity="center"
+        android:textSize="17sp"
+        android:textColor="?attr/colorOnSurface" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/leaveButton"
+        style="@style/Focus.Button.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="@string/leave_button" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/emergencyButton"
+        style="@style/Focus.Button.Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/emergency_unlock_button" />
+
 </LinearLayout>

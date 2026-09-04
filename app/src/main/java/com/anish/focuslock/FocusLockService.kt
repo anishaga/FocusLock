@@ -18,12 +18,18 @@ class FocusLockService : AccessibilityService() {
         if (event.packageName?.toString() != CHROME) return
         if (!Schedule.isBlocked()) return
         if (UnlockManager.isOverrideActive(this)) return
+        if (UnlockManager.isInLeaveGrace(this)) return
 
         val now = System.currentTimeMillis()
         if (now - lastLockAt < MIN_RELAUNCH_INTERVAL_MS) return
 
         val root = rootInActiveWindow ?: return
-        if (!ChromeUrlDetector.isBlockedUrlVisible(root)) return
+        val blocked = try {
+            ChromeUrlDetector.isBlockedUrlVisible(root)
+        } finally {
+            root.recycle()
+        }
+        if (!blocked) return
 
         lastLockAt = now
         startActivity(

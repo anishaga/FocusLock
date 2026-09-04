@@ -2,13 +2,15 @@ package com.anish.focuslock
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.InputType
 import android.view.ActionMode
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.*
+import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.button.MaterialButton
 
 class LockScreenActivity : AppCompatActivity() {
 
@@ -20,11 +22,12 @@ class LockScreenActivity : AppCompatActivity() {
 
         countdown = findViewById(R.id.countdownText)
 
-        findViewById<Button>(R.id.leaveButton).setOnClickListener {
+        findViewById<MaterialButton>(R.id.leaveButton).setOnClickListener {
+            UnlockManager.startLeaveGrace(this)
             finishAndRemoveTask()
         }
 
-        findViewById<Button>(R.id.emergencyButton).setOnClickListener {
+        findViewById<MaterialButton>(R.id.emergencyButton).setOnClickListener {
             showEmergencyUnlock()
         }
 
@@ -41,45 +44,33 @@ class LockScreenActivity : AppCompatActivity() {
     }
 
     private fun updateMessage() {
-        countdown.text = "X is blocked during your focus hours.\n\n${Schedule.nextAllowedText()}"
+        // Same information as before (README/README-documented behavior
+        // unchanged): just Schedule.nextAllowedText(), unmodified function.
+        countdown.text = Schedule.nextAllowedText()
     }
 
     private fun showEmergencyUnlock() {
-        val container = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(48, 10, 48, 0)
-        }
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_emergency_unlock, null)
+        val phraseText = view.findViewById<TextView>(R.id.emergencyPhraseText)
+        val input = view.findViewById<EditText>(R.id.emergencyInput)
 
-        val explanation = TextView(this).apply {
-            text = "This is intentionally difficult. Type the sentence below manually if access is genuinely urgent."
-            textSize = 15f
-        }
+        phraseText.text = UnlockManager.PHRASE
 
-        val phrase = TextView(this).apply {
-            text = "\n${UnlockManager.PHRASE}\n"
+        // Unchanged from the original: disables the text-selection action
+        // mode (copy/paste/select-all) so the phrase must be typed by hand,
+        // not pasted in.
+        input.customSelectionActionModeCallback = object : ActionMode.Callback {
+            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?) = false
+            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?) = false
+            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?) = false
+            override fun onDestroyActionMode(mode: ActionMode?) = Unit
         }
-
-        val input = EditText(this).apply {
-            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-            isSingleLine = false
-            hint = "Type the phrase manually"
-            customSelectionActionModeCallback = object : ActionMode.Callback {
-                override fun onCreateActionMode(mode: ActionMode?, menu: Menu?) = false
-                override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?) = false
-                override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?) = false
-                override fun onDestroyActionMode(mode: ActionMode?) = Unit
-            }
-        }
-
-        container.addView(explanation)
-        container.addView(phrase)
-        container.addView(input)
 
         val dialog = AlertDialog.Builder(this)
-            .setTitle("Emergency unlock")
-            .setView(container)
-            .setNegativeButton("Cancel", null)
-            .setPositiveButton("Continue", null)
+            .setTitle(R.string.emergency_title)
+            .setView(view)
+            .setNegativeButton(R.string.emergency_cancel, null)
+            .setPositiveButton(R.string.emergency_continue, null)
             .create()
 
         dialog.setOnShowListener {
@@ -104,18 +95,18 @@ class LockScreenActivity : AppCompatActivity() {
     }
 
     private fun startCountdown() {
-        countdown.text = "Emergency unlock armed.\n\nWait 30 seconds..."
+        countdown.text = getString(R.string.emergency_armed_format, 30)
         object : CountDownTimer(30_000L, 1_000L) {
             override fun onTick(ms: Long) {
-                countdown.text = "Emergency unlock armed.\n\nWait ${ms / 1000 + 1} seconds..."
+                countdown.text = getString(R.string.emergency_armed_format, (ms / 1000 + 1).toInt())
             }
 
             override fun onFinish() {
                 AlertDialog.Builder(this@LockScreenActivity)
-                    .setTitle("Are you absolutely sure?")
-                    .setMessage("This will allow X for 15 minutes. Your normal schedule will resume afterwards.")
-                    .setNegativeButton("No", null)
-                    .setPositiveButton("Yes, unlock 15 minutes") { _, _ ->
+                    .setTitle(R.string.emergency_confirm_title)
+                    .setMessage(R.string.emergency_confirm_message)
+                    .setNegativeButton(R.string.emergency_confirm_no, null)
+                    .setPositiveButton(R.string.emergency_confirm_yes) { _, _ ->
                         UnlockManager.grant15Minutes(this@LockScreenActivity)
                         finishAndRemoveTask()
                     }
@@ -126,6 +117,7 @@ class LockScreenActivity : AppCompatActivity() {
 
     @Suppress("DEPRECATION")
     override fun onBackPressed() {
+        UnlockManager.startLeaveGrace(this)
         finishAndRemoveTask()
     }
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/emergency_explanation"
+        android:textSize="15sp"
+        android:lineSpacingExtra="3dp"
+        android:textColor="?attr/colorOnSurface" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
+        app:cardBackgroundColor="@color/focus_border">
+
+        <TextView
+            android:id="@+id/emergencyPhraseText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            android:textStyle="italic"
+            android:textSize="14sp"
+            android:lineSpacingExtra="2dp"
+            android:textColor="?attr/colorOnSurface" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <EditText
+        android:id="@+id/emergencyInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/emergency_hint"
+        android:inputType="textMultiLine|textNoSuggestions"
+        android:minLines="2"
+        android:gravity="top|start"
+        android:padding="12dp"
+        android:background="@color/focus_border"
+        android:textColor="?attr/colorOnSurface"
+        android:textColorHint="@color/focus_ink_muted" />
+
+</LinearLayout>
